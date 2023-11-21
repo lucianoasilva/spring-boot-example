@@ -27,7 +27,7 @@ public class ClienteServiceImpl implements IClienteService{
     private IFacturaDao facturaDao;
 
     @Override
-    @Transactional(readOnly = true) //Es sólo una consulta
+    @Transactional(readOnly = true) //Es solo una consulta
     public List<Cliente> findAll() {
         return (List<Cliente>) clienteDao.findAll();
     }

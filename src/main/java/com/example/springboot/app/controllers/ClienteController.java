@@ -36,7 +36,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -161,7 +160,7 @@ public class ClienteController {
     @RequestMapping(value = "/form/{id}")
     public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash, Locale locale) {
 
-        Cliente cliente = null;
+        Cliente cliente;
 
         if (id > 0) {
             cliente = clienteService.findOne(id);

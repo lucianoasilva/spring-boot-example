@@ -28,7 +28,7 @@ public class FacturaPdfView extends AbstractPdfView {
 
         MessageSourceAccessor mensajes = getMessageSourceAccessor();
 
-        PdfPCell cell = null;
+        PdfPCell cell;
 
         //---TABLA CLIENTE---
         PdfPTable tablaCliente = new PdfPTable(1);

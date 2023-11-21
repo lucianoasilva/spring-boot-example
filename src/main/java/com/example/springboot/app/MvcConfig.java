@@ -47,7 +47,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean //conversor de objeto a xml
     public Jaxb2Marshaller jaxb2Marshaller(){
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setClassesToBeBound(new Class[]{com.example.springboot.app.view.xml.ClienteList.class});
+        marshaller.setClassesToBeBound(com.example.springboot.app.view.xml.ClienteList.class);
         return marshaller;
     }
 }

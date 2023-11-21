@@ -7,21 +7,20 @@ import java.util.List;
 
 public class PageRender <T>{
 
-    private String url;
-    private Page<T> page;
+    private final String url;
+    private final Page<T> page;
 
-    private int totalPaginas;
-    private int numElementosPorPagina;
-    private int paginaActual;
+    private final int totalPaginas;
+    private final int paginaActual;
 
-    private List<PageItem> paginas;
+    private final List<PageItem> paginas;
 
     public PageRender(String url, Page<T> page) {
         this.url = url;
         this.page = page;
         this.paginas = new ArrayList<PageItem>();
 
-        numElementosPorPagina = page.getSize();
+        int numElementosPorPagina = page.getSize();
         totalPaginas = page.getTotalPages();
         paginaActual = page.getNumber() + 1;
 
@@ -31,14 +30,14 @@ public class PageRender <T>{
             desde = 1;
             hasta = totalPaginas;
         } else{
-            if(paginaActual <= numElementosPorPagina/2){
+            if(paginaActual <= numElementosPorPagina /2){
                 desde = 1;
                 hasta = numElementosPorPagina;
-            } else if(paginaActual >= totalPaginas - numElementosPorPagina/2){
+            } else if(paginaActual >= totalPaginas - numElementosPorPagina /2){
                 desde = totalPaginas - numElementosPorPagina + 1;
                 hasta = numElementosPorPagina;
             } else{
-                desde = paginaActual - numElementosPorPagina/2;
+                desde = paginaActual - numElementosPorPagina /2;
                 hasta = numElementosPorPagina;
             }
         }

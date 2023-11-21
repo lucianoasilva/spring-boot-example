@@ -44,7 +44,6 @@
 
             $("form").submit(function (){
                 $("#plantillaItemsFactura").remove();
-                return;
             });
         //submit importante: si no se elimina, va a tomar el 'input' de la plantilla como si fuera una línea más
             //y va a lanzar un error porque el id del item contiene un valor string (no numérico), no es parte de la línea
@@ -61,7 +60,7 @@
             var resultado = false;
 
             $('input[name="item_id[]"]').each(function () {
-                if (parseInt(id) == parseInt($(this).val())) {
+                if (parseInt(id) === parseInt($(this).val())) {
                     resultado = true;
                 }
             });
