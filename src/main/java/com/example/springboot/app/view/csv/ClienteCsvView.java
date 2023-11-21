@@ -1,8 +1,11 @@
 package com.example.springboot.app.view.csv;
 
 import com.example.springboot.app.models.entity.Cliente;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.view.AbstractView;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
@@ -14,6 +17,12 @@ import java.util.Map;
 
 @Component("listar.csv")
 public class ClienteCsvView extends AbstractView {
+
+    @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
+    private LocaleResolver localeResolver;
 
     public ClienteCsvView() {
         setContentType("text/csv");

@@ -24,7 +24,6 @@
                     });
                 },//source
                 select: function (event, ui) {
-                    //$("#buscar_producto").val(ui.item.label;
                     if (itemsHelper.hasProducto(ui.item.value)) {
                         itemsHelper.incrementaCantidad(ui.item.value, ui.item.precio);
                         return false;
@@ -46,10 +45,10 @@
             $("form").submit(function (){
                 $("#plantillaItemsFactura").remove();
                 return;
-            });//submit
+            });
         //submit importante: si no se elimina, va a tomar el 'input' de la plantilla como si fuera una línea más
             //y va a lanzar un error porque el id del item contiene un valor string (no numérico), no es parte de la línea
-        }//ready
+        }
     );
 
     var itemsHelper = {

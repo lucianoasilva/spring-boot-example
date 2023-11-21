@@ -7,6 +7,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 
 @Component("factura/ver")
 public class FacturaPdfView extends AbstractPdfView {
+
     @Override
     protected void buildPdfDocument(Map<String,Object> model, Document document,
                                     PdfWriter writer, HttpServletRequest request,
@@ -24,11 +26,14 @@ public class FacturaPdfView extends AbstractPdfView {
 
         Factura factura = (Factura) model.get("factura");
 
+        MessageSourceAccessor mensajes = getMessageSourceAccessor();
+
         PdfPCell cell = null;
 
         //---TABLA CLIENTE---
         PdfPTable tablaCliente = new PdfPTable(1);
-        cell = new PdfPCell(new Phrase("Datos del Cliente"));
+        assert mensajes != null;
+        cell = new PdfPCell(new Phrase(mensajes.getMessage("text.factura.ver.datos.cliente")));
         cell.setBackgroundColor(new Color(184, 218, 255));
         cell.setPadding(8f);
         tablaCliente.setSpacingAfter(20);
@@ -39,23 +44,23 @@ public class FacturaPdfView extends AbstractPdfView {
 
         //---TABLA FACTURA---
         PdfPTable tablaFactura = new PdfPTable(1);
-        cell = new PdfPCell(new Phrase("Datos de la Factura"));
+        cell = new PdfPCell(new Phrase(mensajes.getMessage("text.factura.ver.datos.factura")));
         cell.setBackgroundColor(new Color(195, 230, 203));
         cell.setPadding(8f);
         tablaFactura.setSpacingAfter(20);
         tablaFactura.addCell(cell);
-        tablaFactura.addCell("Folio: "+factura.getId());
-        tablaFactura.addCell("Descripción: "+factura.getDescripcion());
-        tablaFactura.addCell("Fecha: "+factura.getCreateAt());
+        tablaFactura.addCell(mensajes.getMessage("text.cliente.factura.folio") + ": " + factura.getId());
+        tablaFactura.addCell(mensajes.getMessage("text.cliente.factura.descripcion") + ": " + factura.getDescripcion());
+        tablaFactura.addCell(mensajes.getMessage("text.cliente.factura.fecha") + ": " + factura.getCreateAt());
 
 
         //---TABLA PRODUCTO---
         PdfPTable tablaProducto = new PdfPTable(4);
         tablaProducto.setWidths(new float[]{3.5f, 1, 1, 1});
-        tablaProducto.addCell("Producto");
-        tablaProducto.addCell("Precio");
-        tablaProducto.addCell("Cantidad");
-        tablaProducto.addCell("Total");
+        tablaProducto.addCell(mensajes.getMessage("text.factura.form.item.nombre"));
+        tablaProducto.addCell(mensajes.getMessage("text.factura.form.item.precio"));
+        tablaProducto.addCell(mensajes.getMessage("text.factura.form.item.cantidad"));
+        tablaProducto.addCell(mensajes.getMessage("text.factura.form.item.total"));
 
         for(ItemFactura item: factura.getItems()){
             tablaProducto.addCell(item.getProducto().getNombre());
@@ -66,7 +71,7 @@ public class FacturaPdfView extends AbstractPdfView {
             tablaProducto.addCell(item.calcularImporte().toString());
         }
 
-        cell = new PdfPCell(new Phrase("Total: "));
+        cell = new PdfPCell(new Phrase(mensajes.getMessage("text.factura.form.total") + ": "));
         cell.setColspan(3);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
         tablaProducto.addCell(cell);
